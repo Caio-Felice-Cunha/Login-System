@@ -50,97 +50,28 @@ class ControllerRegister:
             print(f"Error occurred: {e}")
             return 6  # Custom error code for exception handling
 
-
-print(ControllerRegister.register('Caio', 'caiofcunha@hotmail.com', 'caio123456'))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# from model import Person
-# from sqlalchemy.orm import sessionmaker
-# from sqlalchemy import create_engine
-# import hashlib
-
-
-# def return_session():
-#     CONN = "sqlite:///loginsystem.db"
-#     engine = create_engine(CONN, echo = True)
-#     Session = sessionmaker(bind = engine)
-#     return Session()
-
-# class ControllerRegister():
-
-#     @classmethod
-#     def verify_data(cls, name, email, password): 
-#         if len(name) > 50 or len(name) <= 1:
-#             return 2
-
-#         if len(email) > 200:
-#             return 3
+class ControllerLogin(): 
+    @classmethod
+    def login(cls, email, password):
+        session = return_session()
+        password = hashlib.sha256(password.encode()).hexdigest()
+        logged = session.query(Person).filter(Person.email == email).filter(Person.password == password).all()
+        if len(logged) == 1:
+            return {'logged': True,
+                    'id': logged[0].id}
         
-#         if len(password) >100 or len(password) < 6:
-#             return 4
+        else:
+            return False
         
-#         return 1
-    
-#     @classmethod
-#     def register(cls, name, email, password):
-#         session = return_session()
-#         user = session.query(Person).filter(Person.email == email).all()
+# print(ControllerRegister.register('Maria', 'myemail@gmail.com', 'mypassword'))
 
-#         if len(user) > 0:
-#             return 5
-        
-#         verified_data = cls.verify_data(name, email, password)
+print(ControllerLogin.login('myemail@gmail.com', 'mypassword'))
 
-#         if verified_data != 1:
-#             return verified_data
 
-#         try:
-#             password = hashlib.sha256(password.encode()).hexdigest()
-#             p1 = Person(name = name, email = email, password = password)
-#             session.add(p1)
 
-#         except:
-#             return 3
-        
 
-# print(ControllerRegister.register('Caio', 'caiofcunha@hotmail.com', 'caio123456'))
+
+
 
 
 
