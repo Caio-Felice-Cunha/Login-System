@@ -65,7 +65,7 @@ class ControllerLogin():
         
 # print(ControllerRegister.register('Maria', 'myemail@gmail.com', 'mypassword'))
 
-print(ControllerLogin.login('myemail@gmail.com', 'mypassword'))
+#print(ControllerLogin.login('myemail@gmail.com', 'mypassword'))
 
 
 
